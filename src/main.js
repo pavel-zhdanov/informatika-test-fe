@@ -18,5 +18,6 @@ new Vue({
   created() {
     this.$store.dispatch('fetchGoods');
     this.$store.dispatch('fetchStores');
+    this.$store.dispatch('fetchMoves');
   },
 });

@@ -22,9 +22,9 @@
           <template slot="items" slot-scope="props">
             <tr @click="props.expanded = !props.expanded; props.expanded?onClickRow(props.item):{}">
               <td>{{ props.item.goodsName }}</td>
-              <td class="text-xs-right">{{ props.item.unit }}</td>
-              <td class="text-xs-right">{{ props.item.pack }}</td>
-              <td class="text-xs-right">{{ props.item.count }}</td>
+              <td class="justify-center">{{ props.item.unit }}</td>
+              <td class="justify-center">{{ props.item.pack }}</td>
+              <td class="justify-center">{{ props.item.count }}</td>
               <td class="justify-center layout px-0">
                 <app-edit-goods-modal :goods="props.item"></app-edit-goods-modal>
                 <v-icon
@@ -37,8 +37,23 @@
             </tr>
           </template>
           <template slot="expand" slot-scope="props">
-            <v-card flat>
-              <v-card-text>{{moveGoods}}</v-card-text>
+            <v-data-table
+              :headers="headersMove"
+              :items="moveGoods"
+              hide-actions
+              class="elevation-1"
+              v-if="moveGoods.length>=1"
+            >
+              <template slot="items" slot-scope="props">
+                  <td class="justify-center">{{ props.item.address }}</td>
+                  <td class="justify-center">{{ props.item.importtime }}</td>
+                  <td class="justify-center">{{ props.item.exporttime }}</td>
+              </template>
+            </v-data-table>
+            <v-card
+              flat
+            v-else>
+              <v-card-text>Движения товара отсутствуют</v-card-text>
             </v-card>
           </template>
         </v-data-table>
@@ -63,6 +78,11 @@ export default {
         { text: 'Единица измерения', value: 'unit' },
         { text: 'Вид упаковки', value: 'pack' },
         { text: 'Количество', value: 'count' },
+      ],
+      headersMove: [
+        { text: 'Адрес склада', value: 'address' },
+        { text: 'Дата ввоза', value: 'importtime' },
+        { text: 'Дата вывоза', value: 'exporttime' },
       ],
       moveGoods: [],
     };

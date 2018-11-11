@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign,no-underscore-dangle,no-unused-vars */
 import Axios from 'axios';
+import config from '../config';
 
 const axios = Axios.create({
-  baseURL: 'http://localhost:3001/',
+  baseURL: config.server,
 });
 class Goods {
   constructor(goodsName, unit, pack, count, id) {
@@ -116,6 +117,12 @@ export default {
     },
     moveGoods(state) {
       return state.moveGoods;
+    },
+    getGoodsNameList(state) {
+      return state.goods.map(val => val.goodsName);
+    },
+    getGoodsByName(state) {
+      return goodsName => state.goods.find(item => item.goodsName === goodsName);
     },
   },
 };
