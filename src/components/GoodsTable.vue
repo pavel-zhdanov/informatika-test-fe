@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex>
         <v-toolbar flat color="white">
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Список имеющихся товаров</v-toolbar-title>
           <v-divider
             class="mx-2"
             inset

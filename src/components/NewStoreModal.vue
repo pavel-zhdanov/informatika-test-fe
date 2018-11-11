@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="modal" max-width="1500px">
+  <v-dialog v-model="modal" max-width="1000px">
     <v-btn slot="activator" color="primary" dark class="mb-2">Новый склад</v-btn>
     <v-card>
       <v-card-title>

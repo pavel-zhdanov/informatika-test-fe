@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex>
         <v-toolbar flat color="white">
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Список складов</v-toolbar-title>
           <v-divider
             class="mx-2"
             inset
@@ -176,10 +176,11 @@
           </v-menu>
         </v-flex>
         <v-btn color="primary" dark class="mb-2"
-               @click="showEmptyStore">Показать пустые склады</v-btn>
+               @click="showEmptyStore">
+          {{showEmptyStoreTable?'Скрыть':'Показать пустые склады'}}</v-btn>
     </v-layout>
 
-    <v-layout>
+    <v-layout v-if="showEmptyStoreTable">
       <v-flex>
         <v-data-table
           :headers="headers"
@@ -235,6 +236,7 @@ export default {
       goodsOnStore: [],
       emptyStore: [],
       showGoodsOnStoreTable: false,
+      showEmptyStoreTable: false,
     };
   },
   computed: {
@@ -275,14 +277,19 @@ export default {
         .catch(() => {});
     },
     showEmptyStore() {
-      this.$store.dispatch('fetchEmptyStore', {
-        dateTo: this.emptyDateTo,
-        dateFrom: this.emptyDateFrom,
-      })
-        .then(() => {
-          this.emptyStore = this.$store.getters.emptyStore;
+      if (!this.showEmptyStoreTable) {
+        this.$store.dispatch('fetchEmptyStore', {
+          dateTo: this.emptyDateTo,
+          dateFrom: this.emptyDateFrom,
         })
-        .catch(() => {});
+          .then(() => {
+            this.emptyStore = this.$store.getters.emptyStore;
+            this.showEmptyStoreTable = !this.showEmptyStoreTable;
+          })
+          .catch(() => {});
+      } else {
+        this.showEmptyStoreTable = !this.showEmptyStoreTable;
+      }
     },
   },
 };

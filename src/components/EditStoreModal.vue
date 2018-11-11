@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="modal" max-width="500px">
+  <v-dialog v-model="modal" max-width="1000px">
     <v-icon
       small
       class="mt-3 mr-2"
